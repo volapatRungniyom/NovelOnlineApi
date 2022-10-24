@@ -20,4 +20,5 @@ class Episode extends Model
         return $this->hasMany(CommentEpisode::class);
     }
 
+
 }

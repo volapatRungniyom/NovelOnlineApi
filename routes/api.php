@@ -30,7 +30,7 @@ Route::get('/reward_codes/search', [\App\Http\Controllers\Api\RewardCodeControll
 Route::apiResource('/rewards', \App\Http\Controllers\Api\RewardController::class);
 Route::apiResource('/reward_codes', \App\Http\Controllers\Api\RewardCodeController::class);
 Route::apiResource('/novels',\App\Http\Controllers\Api\NovelController::class);
-Route::apiResource('/episodes',\App\Http\Controllers\Api\EpisodeController::class);
+Route::apiResource('/novels/episodes',\App\Http\Controllers\Api\EpisodeController::class);
 Route::apiResource('/commentNovels',\App\Http\Controllers\Api\CommentNovelController::class);
 Route::apiResource('/commentEpisodes',\App\Http\Controllers\Api\CommentEpisodeController::class);
 Route::apiResource('/tags',\App\Http\Controllers\Api\TagController::class);

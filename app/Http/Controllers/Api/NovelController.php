@@ -30,7 +30,7 @@ class NovelController extends Controller
     public function store(Request $request)
     {
         $novel = new Novel();
-        $novel->name = $request->get('name');
+        $novel->name = $request->get('name') ?? null;
         $novel->detail = $request->get('detail') ?? null;
 
         if ($novel->save()) {
@@ -39,7 +39,7 @@ class NovelController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Novel created with id ' . $novel->id,
-                'reward_id' => $novel->id
+                'novel_id' => $novel->id
             ], Response::HTTP_CREATED);
 
         }

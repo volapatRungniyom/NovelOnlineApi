@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Episode;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EpisodeResource extends JsonResource
@@ -14,12 +16,18 @@ class EpisodeResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        //$prev = $this->resource::get();
+        $prev = $this->resource::select('id')->where('id', '<', $this->resource->id)->where('novel_id',$this->resource->novel_id)->max('id');
+        $next = $this->resource::select('id')->where('id', '>', $this->resource->id)->where('novel_id',$this->resource->novel_id)->min('id');
         return [
             'id' => $this->id,
             'name' => $this->name,
             'detail' => $this->detail,
-            'novel_id' => new NovelResource($this->whenLoaded('novel')),
-            'comment' => $this->comments
+            'novel_id' => $this->novel_id,
+            'comment' => $this->comments,
+            'prev' => $prev,
+            'next' => $next
         ];
     }
 }
