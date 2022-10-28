@@ -10,6 +10,10 @@ class Novel extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $fillable = [
+        'image'
+    ];
+
     public function episodes()
     {
         return $this->hasMany(Episode::class);

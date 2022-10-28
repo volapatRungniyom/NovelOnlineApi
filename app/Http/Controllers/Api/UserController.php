@@ -33,7 +33,8 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->point = $request->get('point');
+        if ($request->has('point')) $user->point = $request->get('point');
+        else $user->point = 100;
         $user->password = Hash::make($request->get('password'));
         if ($user->save()) {
             return response()->json([

@@ -32,8 +32,27 @@ class NovelController extends Controller
         $novel = new Novel();
         $novel->name = $request->get('name') ?? null;
         $novel->detail = $request->get('detail') ?? null;
+        //$novel->detail = $request->get('detail') ?? null;
+
+        if ($request->hasFile('image')){
+            $destination_path = 'public/image';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+            $novel->image = $image_name;
+        }
+
+//        if ($request->has('image')) {
+//            $this->validate($request,[
+//                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+//            ]);
+//            $image_path = $request->file('image')->store('image', 'public');
+//            $novel->image = $image_path;
+//            $novel->save();
+//        }
 
         if ($novel->save()) {
+
             $novel->users()->attach($request->get('user_id'),['is_owner' => 1]);
             $novel->save();
             return response()->json([
