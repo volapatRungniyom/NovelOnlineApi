@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("name");
             $table->text("detail");
             $table->foreignIdFor(\App\Models\Novel::class)->nullable();
+            $table->integer('view')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -90,15 +90,55 @@ class NovelController extends Controller
      */
     public function update(Request $request,Novel $novel)
     {
+        //$novel = Novel::find($novel->id);
         if($request->has('name')) $novel->name = $request->get('name');
         if($request->has('detail')) $novel->detail = $request->get('detail');
-        if($request->has('user_id')) $novel->users()->attach($request->get('user_id'));
+
+        if($request->has('user_id')){
+            if ($novel->users()->where('user_id',$request->get('user_id'))
+                ->where('is_owner',1)->where('is_active',1)->exists()){
+                $novel->usersActive()->updateExistingPivot($request->get('user_id'),['is_active' => 0]);
+                //$novel->users()->detach($request->get('user_id'));
+                //$novel->users()->attach($request->get('user_id'),['is_active' => 0]);
+            }
+            elseif ($novel->users()->where('user_id',$request->get('user_id'))
+                ->where('is_owner',1)->where('is_active',0)->exists()){
+                $novel->usersActive()->updateExistingPivot($request->get('user_id'),['is_active' => 1]);
+                //$novel->users()->detach($request->get('user_id'));
+                //$novel->users()->attach($request->get('user_id'),['is_active' => 1]);
+            }
+            elseif ($novel->users()->where('user_id',$request->get('user_id'))
+                ->where('is_owner',false)->exists()){
+                $novel->users()->detach($request->get('user_id'));
+            }
+            else {
+                $novel->users()->attach($request->get('user_id'),['is_active' => 1]);
+            }
+        }
+
+        if ($request->hasFile('image')){
+            $destination_path = 'public/image';
+
+            if($novel->image != ''  && $novel->image != null){
+                $file_old = $novel->image;
+                unlink('storage/public/image/fa4.png');
+            }
+
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+            $novel->image = $image_name;
+            $novel->update(['image' => $image_name]);
+        }
+
 
         if ($novel->save()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Novel updated with id ' . $novel->id,
-                'reward_id' => $novel->id
+                'Novel_id' => $novel->id,
+                'Image' => $novel->image,
+                'test' => $novel->name
             ], Response::HTTP_OK);
         }
 

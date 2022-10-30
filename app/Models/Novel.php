@@ -31,5 +31,8 @@ class Novel extends Model
     public function users(){
         return $this->belongsToMany(User::class)->withPivot('is_owner');
     }
+    public function usersActive(){
+        return $this->belongsToMany(User::class)->withPivot('is_active');
+    }
 
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Novel::class);
             $table->foreignIdFor(\App\Models\User::class);
             $table->boolean('is_owner')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

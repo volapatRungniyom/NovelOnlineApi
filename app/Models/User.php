@@ -69,13 +69,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function novels(){
-        return $this->belongsToMany(Novel::class)->withPivot('is_owner');
+        return $this->belongsToMany(Novel::class)->withPivot('is_active')
+            ->wherePivot('is_active',1);
     }
 
     public function author(){
         return $this->belongsToMany(Novel::class)->withPivot('is_owner')
             ->wherePivot('is_owner',1);
     }
+
 
 
 
