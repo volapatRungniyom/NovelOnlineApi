@@ -10,6 +10,7 @@ class Episode extends Model
 {
     use HasFactory,SoftDeletes;
 
+
     public function novel()
     {
         return $this->belongsTo(Novel::class);

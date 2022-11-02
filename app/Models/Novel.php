@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +18,11 @@ class Novel extends Model
     public function episodes()
     {
         return $this->hasMany(Episode::class);
+    }
+
+    public function episodesCreated()
+    {
+        return $this->hasMany(Episode::class)->select('created_at');
     }
 
     public function comments()

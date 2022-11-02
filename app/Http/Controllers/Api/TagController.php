@@ -70,8 +70,14 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         if($request->has('name')) $tag->name = $request->get('name');
-        if($request->has('novel_id')) $tag->novels()->attach($request->get('novel_id'));
+        if($request->has('novel_id')) {
+            if ($tag->novels()->where('novel_id',$request->get('novel_id'))->exists()){
+                $tag->novels()->detach($request->get('novel_id'));
 
+            }else{
+                $tag->novels()->attach($request->get('novel_id'));
+            }
+        }
 
         if ($tag->save()) {
             return response()->json([

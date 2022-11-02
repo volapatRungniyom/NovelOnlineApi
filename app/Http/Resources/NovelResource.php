@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -22,6 +23,7 @@ class NovelResource extends JsonResource
             'detail' => $this->detail,
             'image' => $this->image,
             'episodes' => $this->episodes,
+            'episodesCreated' => $this->episodesCreated,
             'comments' => $this->comments,
             'tags' => $this->tags,
             'user' => $this->users

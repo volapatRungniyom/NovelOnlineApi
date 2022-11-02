@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Episode;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EpisodeResource extends JsonResource
@@ -26,6 +27,7 @@ class EpisodeResource extends JsonResource
             'detail' => $this->detail,
             'novel_id' => $this->novel_id,
             'comment' => $this->comments,
+            'created_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('Y-m-d H:i:s'),
             'prev' => $prev,
             'next' => $next
         ];

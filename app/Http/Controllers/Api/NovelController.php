@@ -148,6 +148,42 @@ class NovelController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function NovelEdit(Request $request, $id)
+    {
+        $novel = Novel::find($id);
+        if ($request->hasFile('image')){
+            $destination_path = 'public/image';
+            $image = $request->file('image');
+            $image_name = $image->hashName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+            $novel->image = $image_name;
+        }
+        if($request->has('name')) $novel->name = $request->get('name');
+        if($request->has('detail')) $novel->detail = $request->get('detail');
+
+
+        if ($novel->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User updated with id ' . $novel->id,
+                'reward_id' => $novel->id
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'User update failed'
+        ], Response::HTTP_BAD_REQUEST);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
