@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text("detail");
             $table->foreignIdFor(\App\Models\Novel::class)->nullable();
             $table->integer('view')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

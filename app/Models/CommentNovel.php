@@ -14,4 +14,9 @@ class CommentNovel extends Model
         return $this->belongsTo(Novel::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

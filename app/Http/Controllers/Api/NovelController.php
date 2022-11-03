@@ -94,6 +94,7 @@ class NovelController extends Controller
         if($request->has('name')) $novel->name = $request->get('name');
         if($request->has('detail')) $novel->detail = $request->get('detail');
 
+
         if($request->has('user_id')){
             if ($novel->users()->where('user_id',$request->get('user_id'))
                 ->where('is_owner',1)->where('is_active',1)->exists()){
@@ -201,11 +202,21 @@ class NovelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Novel  $novel
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Novel $novel)
     {
-        //
+        $name = $novel->name;
+        if (Novel::destroy($novel->id)) {
+            return response()->json([
+                'success' => true,
+                'message' => "Novel {$novel} has been deleted"
+            ], Response::HTTP_OK);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "Novel {$name} delete failed"
+        ], Response::HTTP_BAD_REQUEST);
     }
 }

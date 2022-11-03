@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text("detail");
             $table->string('image')->nullable();
             $table->integer('view')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

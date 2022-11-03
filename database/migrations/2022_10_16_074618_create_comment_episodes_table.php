@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->text('message');
             $table->foreignIdFor(\App\Models\Episode::class)->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->nullable();
             $table->timestamps();
         });
     }

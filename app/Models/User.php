@@ -73,6 +73,14 @@ class User extends Authenticatable implements JWTSubject
             ->wherePivot('is_active',1);
     }
 
+    public function commentNovel(){
+        return $this->belongsToMany(CommentNovel::class);
+    }
+
+    public function commentEpisode(){
+        return $this->belongsToMany(CommentEpisode::class);
+    }
+
     public function author(){
         return $this->belongsToMany(Novel::class)->withPivot('is_owner')
             ->wherePivot('is_owner',1);

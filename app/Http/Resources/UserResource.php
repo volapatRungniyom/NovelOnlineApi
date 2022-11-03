@@ -24,7 +24,8 @@ class UserResource extends JsonResource
             'libary' => $this->novels,
             'author' => $this->author,
             'following' => $this->following,
-            'followers' => $this->followers->count()
+            'followers' => $this->followers->count(),
+            'role' => $this->role
         ];
     }
 }
