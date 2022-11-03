@@ -184,6 +184,20 @@ class NovelController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
+    public function search(Request $request) {
+        $q = $request->query('q');
+        if ($q == ''){
+            return [];
+        }
+        $sort = $request->query('sort') ?? 'asc';
+        $novels = Novel::where('name', 'LIKE', "%{$q}%")
+            ->orderBy('id', $sort)
+            ->get();
+        return $novels;
+    }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
