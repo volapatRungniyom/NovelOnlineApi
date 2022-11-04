@@ -17,7 +17,8 @@ class CommentEpisodeResource extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
-            'episode_id' => new NovelResource($this->whenLoaded('episode_id'))
+            'user' => $this->user,
+            'created_at' => $this->created_at
         ];
     }
 }

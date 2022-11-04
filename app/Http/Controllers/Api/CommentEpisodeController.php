@@ -33,6 +33,8 @@ class CommentEpisodeController extends Controller
         $commentEpisode = new CommentEpisode();
         $commentEpisode->message = $request->get('message');
         $commentEpisode->episode_id = $request->get('episode_id');
+        $commentEpisode->user_id = $request->get('user_id');
+
 
         if ($commentEpisode->save()) {
 
@@ -85,6 +87,18 @@ class CommentEpisodeController extends Controller
             'success' => false,
             'message' => 'Comment update failed'
         ], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getCommentEpisode($id) {
+
+        $comment = CommentEpisode::where('episode_id', $id)->get();
+        return CommentEpisodeResource::collection($comment);
     }
 
     /**

@@ -32,13 +32,14 @@ class CommentNovelController extends Controller
         $comment = new CommentNovel();
         $comment->message = $request->get('message');
         $comment->novel_id = $request->get('novel_id');
+        $comment->user_id = $request->get('user_id');
 
         if ($comment->save()) {
 
             return response()->json([
                 'success' => true,
                 'message' => 'Comment created with id ' . $comment->id,
-                '$commentNovel_id' => $comment->id
+                '$commentEpisode_id' => $comment->id
             ], Response::HTTP_CREATED);
 
         }
@@ -83,6 +84,19 @@ class CommentNovelController extends Controller
             'success' => false,
             'message' => 'Comment update failed'
         ], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getCommentNovel($id) {
+
+        //$novel_id = $request->get('novel_id');
+        $comment = CommentNovel::where('novel_id', $id)->get();
+        return CommentNovelResource::collection($comment);
     }
 
     /**
