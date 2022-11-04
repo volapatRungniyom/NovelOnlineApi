@@ -61,7 +61,6 @@ class EpisodeController extends Controller
         return new EpisodeResource($episode);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -73,6 +72,15 @@ class EpisodeController extends Controller
     {
         if($request->has('name')) $episode->name = $request->get('name');
         if($request->has('detail')) $episode->detail = $request->get('detail');
+        if($request->has('user_id')){
+            if (!$episode->usersAll()->where('user_id',$request->get('user_id'))->exists()){
+                $episode->users()->attach($request->get('user_id'));
+            }
+
+        }
+
+
+
 
         if ($episode->save()) {
             return response()->json([

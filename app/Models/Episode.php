@@ -21,5 +21,12 @@ class Episode extends Model
         return $this->hasMany(CommentEpisode::class);
     }
 
+    public function users(){
+        return $this->belongsToMany(User::class)->select('id');
+    }
+
+    public function usersAll(){
+        return $this->belongsToMany(User::class);
+    }
 
 }
