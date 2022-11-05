@@ -197,6 +197,17 @@ class NovelController extends Controller
         return $novels;
     }
 
+    public function mostView() {
+        $novels = Novel::orderBy('view','desc')->take(4)->get();
+        return NovelResource::collection($novels);
+    }
+
+    public function newNovel() {
+        $novels = Novel::orderBy('created_at','desc')->take(4)->get();
+        return NovelResource::collection($novels);
+    }
+
+
 
 
     /**

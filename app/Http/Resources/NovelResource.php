@@ -26,7 +26,8 @@ class NovelResource extends JsonResource
             'episodesCreated' => $this->episodesCreated,
             'comments' => $this->comments,
             'tags' => $this->tags,
-            'user' => $this->users
+            'user' => $this->users,
+            'view' => $this->view
         ];
     }
 }

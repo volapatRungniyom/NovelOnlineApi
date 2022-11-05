@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NovelResource;
 use App\Http\Resources\TagResource;
+use App\Models\Novel;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -92,6 +94,8 @@ class TagController extends Controller
             'message' => 'Tag update failed'
         ], Response::HTTP_BAD_REQUEST);
     }
+
+
 
     /**
      * Remove the specified resource from storage.

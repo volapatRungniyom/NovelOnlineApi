@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EpisodeResource;
 use App\Models\Episode;
+use App\Models\Novel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -76,7 +77,10 @@ class EpisodeController extends Controller
             if (!$episode->usersAll()->where('user_id',$request->get('user_id'))->exists()){
                 $episode->users()->attach($request->get('user_id'));
             }
-
+            $episode->view += 1;
+            $novel = Novel::find($episode->novel->id);
+            $novel->view += 1;
+            $novel->save();
         }
 
 
