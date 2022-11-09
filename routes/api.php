@@ -42,7 +42,9 @@ Route::apiResource('/commentNovels',\App\Http\Controllers\Api\CommentNovelContro
 Route::apiResource('/commentEpisodes',\App\Http\Controllers\Api\CommentEpisodeController::class);
 Route::apiResource('/tags',\App\Http\Controllers\Api\TagController::class);
 Route::apiResource('/users',\App\Http\Controllers\Api\UserController::class);
+
 Route::post('updateProfile/{id}', [\App\Http\Controllers\Api\UserController::class,'updateProfile']);
+
 Route::post('NovelEdit/{id}', [\App\Http\Controllers\Api\NovelController::class,'NovelEdit']);
 
 

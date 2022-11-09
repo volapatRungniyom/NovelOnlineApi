@@ -32,7 +32,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = new User();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
@@ -42,8 +41,6 @@ class UserController extends Controller
             $destination_path = 'public/image';
             $image = $request->file('image');
             $image_name = $image->hashName();
-            //$image_name = $image->getClientOriginalName();
-
             $path = $request->file('image')->storeAs($destination_path,$image_name);
             $user->image_path = $image_name;
         }
